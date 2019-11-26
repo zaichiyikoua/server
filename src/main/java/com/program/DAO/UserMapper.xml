@@ -12,6 +12,14 @@
   	</select>
   	
   	<select id="getPasswordByName" parameterType="String" resultType="String">
-  		select password form user where name = #{name}
+  		select password from user where name = #{name}
+  	</select>
+  
+  	<select id="getAllUserCount" resultType="long">
+  		select count(*) from user
+  	</select>
+  	
+  	<select id="getAllUserByPages" resultType="com.program.pojo.User">
+  		select * from user order by id limit #{page},#{size}
   	</select>
   </mapper>

@@ -15,11 +15,9 @@ public class Interceptor implements HandlerInterceptor {
 			throws Exception {
 		HttpSession session = request.getSession();
 		String token = (String) session.getAttribute("token");
-		//简单判断，有token，放行           没有token，重定位到登录
+		//简单判断，有token，放行           没有token，抛出异常
 		if (token == null || token.equals("")) {
-			request.setAttribute("info","没有权限");
-			response.sendRedirect("/login");
-			return false;
+			throw new Exception("请登录");
 		}
 		
 		return true;

@@ -18,16 +18,17 @@ import com.program.pojo.User;
 import com.program.serviceImpl.UserServiceImpl;
 
 @RestController
-@RequestMapping("/program")
+@RequestMapping("/program/User")
 public class UserController {
 
 	@Autowired
 	UserServiceImpl service;
 
-	@GetMapping("User/login")
+	// 登录接口
+	@GetMapping("/login")
 	public Map<String, Object> login(@RequestParam("name") String name, @RequestParam("password") String password,
 			HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if (name == null && password == null) {
 			map.put("code", 400);
 			map.put("info", "用户名和密码为空");
@@ -57,6 +58,23 @@ public class UserController {
 		return map;
 	}
 
+	// 分页查询接口
+	@GetMapping("/getAllUserByPage")
+	public Map<String, Object> getAllUserByPage(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 进行计算
+		int offset = (page - 1) * size;
+		long allUserCount = service.getAllUserCount();
+		List<User> allUserByPages = service.getAllUserByPages(offset, size);
+
+		map.put("count", allUserCount);
+		map.put("data", allUserByPages);
+
+		return map;
+	}
+
+	// 测试用
 	@GetMapping("/User/{id}")
 	public User getUserById(@PathVariable int id) {
 		return service.getUserById(id);
