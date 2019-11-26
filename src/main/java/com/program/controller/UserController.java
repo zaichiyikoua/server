@@ -70,6 +70,7 @@ public class UserController {
 
 		map.put("count", allUserCount);
 		map.put("data", allUserByPages);
+		map.put("code", 200);
 
 		return map;
 	}
