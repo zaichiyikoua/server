@@ -11,4 +11,7 @@
   		select * from user where name = #{name}
   	</select>
   	
+  	<select id="getPasswordByName" parameterType="String" resultType="String">
+  		select password form user where name = #{name}
+  	</select>
   </mapper>

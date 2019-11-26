@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class Config	implements WebMvcConfigurer {
-
+	//跨域部分
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/program/**")

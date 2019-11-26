@@ -1,5 +1,7 @@
 package com.program.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.program.pojo.User;
 import com.program.serviceImpl.UserServiceImpl;
 
 @RestController
@@ -19,6 +22,31 @@ public class UserController {
 
 	@GetMapping("User/login")
 	public Map<String,Object> login(@RequestParam("name") String name, @RequestParam("password") String password) {
-		return service.login(name, password);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		if (name == null && password == null) {
+			map.put("code", 400);
+			map.put("info", "用户名和密码为空");
+			return map;
+		}	
+		//先查用户，存在用户，再比较密码是否相同
+		//可能存在同名用户
+		List<User> user = service.getUserByName(name);		
+		if (user.isEmpty() == true) {
+			map.put("code", 400);
+			map.put("info", "用户不存在");
+			return map;
+		}
+		for (User item : user) {
+			//简单判断，后面再改
+			if (item.getPassword().equals(password)) {
+				map.put("code", 200);
+				map.put("indo", "登录成功");
+				return map;
+			}
+		}
+		//存在用户但是密码和数据库密码不一致
+		map.put("code", 400);
+		map.put("info", "密码错误，请重新输入");
+		return map;
 	}
 }

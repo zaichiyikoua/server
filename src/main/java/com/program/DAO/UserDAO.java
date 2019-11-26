@@ -13,4 +13,6 @@ public interface UserDAO {
 	public User getUserById(int id);
 	//通过name获取,可能有重名
 	public List<User> getUserByName(String name);
+	//通过用户名获取密码
+	public String getPasswordByName(String name);
 }
