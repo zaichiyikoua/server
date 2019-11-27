@@ -57,6 +57,14 @@ public class UserController {
 		map.put("info", "密码错误，请重新输入");
 		return map;
 	}
+	
+	//退出登录
+	@RequestMapping("/loginOut")
+	public void loginOut(HttpSession session){
+		if (session != null) {
+			session.invalidate();
+		}
+	}
 
 	// 分页查询接口
 	@GetMapping("/getAllUserByPage")
@@ -75,6 +83,7 @@ public class UserController {
 		return map;
 	}
 
+	
 	// 测试用
 	@GetMapping("/User/{id}")
 	public User getUserById(@PathVariable int id) {
