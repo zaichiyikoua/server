@@ -18,11 +18,11 @@ public class Config	implements WebMvcConfigurer {
 		.maxAge(1800)
 		.allowedOrigins("http://localhost:8083");
 	}
-//	//拦截器
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(new Interceptor()).addPathPatterns("/**")
-//				.addPathPatterns("/login");
-//	}
+	//拦截器
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new Interceptor()).addPathPatterns("/**")
+				.excludePathPatterns("/program/User/login");
+	}
 	
 }
