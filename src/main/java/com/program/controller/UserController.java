@@ -57,10 +57,10 @@ public class UserController {
 		map.put("info", "密码错误，请重新输入");
 		return map;
 	}
-	
-	//退出登录
-	@RequestMapping("/loginOut")
-	public void loginOut(HttpSession session){
+
+	// 退出登录接口
+	@RequestMapping("/logout")
+	public void logout(HttpSession session) {
 		if (session != null) {
 			session.invalidate();
 		}
@@ -71,6 +71,11 @@ public class UserController {
 	public Map<String, Object> getAllUserByPage(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "5") int size) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if (page < 0 || size < 0) {
+			map.put("info", "请输入有效的条件");
+			map.put("code", 400);
+			return map;
+		}
 		// 进行计算
 		int offset = (page - 1) * size;
 		long allUserCount = service.getAllUserCount();
@@ -83,7 +88,6 @@ public class UserController {
 		return map;
 	}
 
-	
 	// 测试用
 	@GetMapping("/User/{id}")
 	public User getUserById(@PathVariable int id) {
