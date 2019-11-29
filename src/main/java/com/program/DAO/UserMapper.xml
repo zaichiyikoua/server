@@ -22,4 +22,10 @@
   	<select id="getAllUserByPages" resultType="com.program.pojo.User">
   		select * from p_user order by userId limit #{page},#{size}
   	</select>
+  	
+  	<insert id="addUser" parameterType="com.program.pojo.User">
+  		insert into p_user(userName,loginName,password,sex,age,authority,telephone,registerTime,Email,address,note)
+  		values(#{userName},#{loginName},#{password},#{sex},#{age},#{authority},
+  			   #{telephone},#{registerTime},#{Email},#{address},#{note})
+  	</insert>
   </mapper>

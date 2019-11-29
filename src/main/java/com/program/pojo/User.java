@@ -9,22 +9,23 @@ import org.springframework.stereotype.Component;
 public class User {
 	// 用户ID
 	private int userId;
-	// 用户姓名
+	// 用户姓名 必需
 	private String userName;
-	// 登录名称
+	// 登录名称  不能重复 必需
 	private String loginName;
-	// 密码
+	// 密码 必需
 	private String password;
-	// 性别
+	// 性别 必需
 	private String sex;
-	// 年龄
+	// 年龄 必需
 	private int age;
 	// 用户权限 1为超级管理员 2为普通管理员
+	// 必需
 	private int authority;
-	// 电话
+	// 电话 必需
 	private String telephone;
-	// 注册时间
-	@DateTimeFormat(pattern = "yyyy-MM-DD")
+	// 注册时间 必需
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date registerTime;
 	// 邮箱
 	private String Email;
