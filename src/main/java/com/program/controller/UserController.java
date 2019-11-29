@@ -26,17 +26,17 @@ public class UserController {
 
 	// 登录接口
 	@GetMapping("/login")
-	public Map<String, Object> login(@RequestParam("name") String name, @RequestParam("password") String password,
+	public Map<String, Object> login(@RequestParam("loginName") String loginName, @RequestParam("password") String password,
 			HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if (name == null && password == null) {
+		if (loginName == null && password == null) {
 			map.put("code", 400);
 			map.put("info", "用户名和密码为空");
 			return map;
 		}
 		// 先查用户，存在用户，再比较密码是否相同
 		// 可能存在同名用户
-		List<User> user = service.getUserByName(name);
+		List<User> user = service.getUserByName(loginName);
 		if (user.isEmpty() == true) {
 			map.put("code", 400);
 			map.put("info", "用户不存在");
@@ -89,9 +89,9 @@ public class UserController {
 	}
 
 	// 测试用
-	@GetMapping("/User/{id}")
-	public User getUserById(@PathVariable int id) {
-		return service.getUserById(id);
+	@GetMapping("/User/{userId}")
+	public User getUserById(@PathVariable("userId") int userId) {
+		return service.getUserById(userId);
 	}
 
 }

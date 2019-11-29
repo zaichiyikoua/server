@@ -28,14 +28,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public User getUserById(int id) {
-		return userDAO.getUserById(id);
+	public User getUserById(int userId) {
+		return userDAO.getUserById(userId);
 	}
 
 	@Override
 	@Transactional
-	public List<User> getUserByName(String name) {
-		return userDAO.getUserByName(name);
+	public List<User> getUserByName(String loginName) {
+		return userDAO.getUserByName(loginName);
 	}
 
 }
