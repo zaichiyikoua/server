@@ -18,4 +18,7 @@ public interface UserService {
 
 	// 添加用户
 	public int addUser(User user);
+
+	// 修改用户
+	public int updataUser(User user);
 }

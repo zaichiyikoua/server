@@ -86,7 +86,7 @@ public class UserController<V> {
 		return map;
 	}
 
-	// 添加用户
+	// 添加用户接口
 	@PostMapping("/addUser")
 	public Map<String, Object> addUser(User user) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -113,19 +113,49 @@ public class UserController<V> {
 		return map;
 	}
 
-	// 通过Id查询
+	// 通过Id查询接口
 	@GetMapping("/{userId}")
 	public Map<String, Object> getUserById(@PathVariable("userId") int userId) {
-		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if (userId <= 0) {
 			map.put("info", "请输入有效的查询条件");
 			map.put("code", 400);
 			return map;
-		}		
+		}
 		User userById = service.getUserById(userId);
 		map.put("code", 200);
 		map.put("data", userById);
 		return map;
 	}
 
+	// 修改用户信息接口
+	// 一般情况为修改密码和权限
+	@PostMapping("/updateUser")
+	public Map<String, Object> updateUser(User user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (user == null) {
+			map.put("info", "请输入您要修改的参数");
+			map.put("code", 400);
+			return map;
+		}
+		// 只有超级管理员才能修改用户
+		// 设定不能修改登录账号（loginName）
+		User userByName = service.getUserByName(user.getLoginName());
+		int authority = userByName.getAuthority();
+		if (authority != 1) {
+			map.put("info", "您没有权限");
+			map.put("code", 400);
+			map.put("test", authority);
+			return map;
+		}
+		int updataUser = service.updataUser(user);
+		if (updataUser > 0) {
+			map.put("info", "修改成功");
+			map.put("code", 200);
+			return map;
+		}
+		map.put("info", "修改失败");
+		map.put("code", 400);
+		return map;
+	}
 }

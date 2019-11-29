@@ -28,4 +28,37 @@
   		values(#{userName},#{loginName},#{password},#{sex},#{age},#{authority},
   			   #{telephone},#{registerTime},#{Email},#{address},#{note})
   	</insert>
+  	
+  	<update id="updataUser" parameterType="com.program.pojo.User">
+  		update p_user 
+  		<set>
+			password=#{password},
+			authority=#{authority},
+		<if test="userName != null and userName != ''">
+			userName=#{userName},
+		</if>	
+		<if test="sex != null and sex != ''">
+			sex=#{sex},
+		</if>
+		<if test="age != null and age != ''">
+			age=#{age},
+		</if>
+		<if test="telephone != null and telephone != ''">
+			telephone=#{telephone},
+		</if>
+		<if test="registerTime != null and registerTime != ''">
+			registerTime=#{registerTime},
+		</if>
+		<if test="Email != null and Email != ''">
+			Email=#{Email},
+		</if>
+		<if test="address != null and address != ''">
+			address=#{address},
+		</if>
+		<if test="note != null and note != ''">
+			note=#{note},
+		</if>	
+  		</set>
+  		where loginName=#{loginName}
+  	</update>
   </mapper>
