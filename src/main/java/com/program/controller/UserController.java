@@ -71,7 +71,7 @@ public class UserController {
 	public Map<String, Object> getAllUserByPage(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "5") int size) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if (page < 0 || size < 0) {
+		if (page <= 0 || size <= 0) {
 			map.put("info", "请输入有效的条件");
 			map.put("code", 400);
 			return map;

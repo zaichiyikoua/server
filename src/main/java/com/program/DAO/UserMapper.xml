@@ -4,22 +4,22 @@
  
   <mapper namespace="com.program.DAO.UserDAO">
   	<select id="getUserById" parameterType="int" resultType="com.program.pojo.User">
-  		select * from user where id = #{id}
+  		select * from p_user where id = #{id}
   	</select>
   	
   	<select id="getUserByName" parameterType="String" resultType="com.program.pojo.User">
-  		select * from user where name = #{name}
+  		select * from p_user where name = #{name}
   	</select>
   	
   	<select id="getPasswordByName" parameterType="String" resultType="String">
-  		select password from user where name = #{name}
+  		select password from p_user where name = #{name}
   	</select>
   
   	<select id="getAllUserCount" resultType="long">
-  		select count(*) from user
+  		select count(*) from p_user
   	</select>
   	
   	<select id="getAllUserByPages" resultType="com.program.pojo.User">
-  		select * from user order by id limit #{page},#{size}
+  		select * from p_user order by id limit #{page},#{size}
   	</select>
   </mapper>
