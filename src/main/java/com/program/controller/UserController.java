@@ -48,6 +48,8 @@ public class UserController<V> {
 			map.put("code", 200);
 			map.put("info", "登录成功");
 			map.put("token", Token.getToken());
+			// 新增 添加权限信息
+			session.setAttribute("authority", user.getAuthority());
 			return map;
 		}
 		// 存在用户但是密码和数据库密码不一致
@@ -131,17 +133,16 @@ public class UserController<V> {
 	// 修改用户信息接口
 	// 一般情况为修改密码和权限
 	@PostMapping("/updateUser")
-	public Map<String, Object> updateUser(User user) {
+	public Map<String, Object> updateUser(User user, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (user == null) {
 			map.put("info", "请输入您要修改的参数");
 			map.put("code", 400);
 			return map;
 		}
+		int authority = (int) session.getAttribute("authority");
 		// 只有超级管理员才能修改用户
 		// 设定不能修改登录账号（loginName）
-		User userByName = service.getUserByName(user.getLoginName());
-		int authority = userByName.getAuthority();
 		if (authority != 1) {
 			map.put("info", "您没有权限");
 			map.put("code", 400);
