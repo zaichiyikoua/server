@@ -61,4 +61,8 @@
   		</set>
   		where loginName=#{loginName}
   	</update>
+  	
+  	<delete id="deleteUser" parameterType="String">
+  		delete from p_user where loginName=#{loginName}
+  	</delete>
   </mapper>

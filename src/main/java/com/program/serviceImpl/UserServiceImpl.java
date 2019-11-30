@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
 	public int updataUser(User user) {
 		return userDAO.updataUser(user);
 	}
+
+	@Override
+	public int deleteUser(String loginName) {
+		return userDAO.deleteUser(loginName);
+	}
 	
 	
 }

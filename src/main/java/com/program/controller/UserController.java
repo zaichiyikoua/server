@@ -20,7 +20,7 @@ import com.program.serviceImpl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/program/User")
-public class UserController<V> {
+public class UserController {
 
 	@Autowired
 	UserServiceImpl service;
@@ -30,7 +30,7 @@ public class UserController<V> {
 	public Map<String, Object> login(@RequestParam("loginName") String loginName,
 			@RequestParam("password") String password, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if (loginName == null || password == null) {
+		if (loginName == null || password == null || loginName.equals("") || password.equals("")) {
 			map.put("code", 400);
 			map.put("info", "请输入用户名和密码");
 			return map;
@@ -134,6 +134,7 @@ public class UserController<V> {
 	// 一般情况为修改密码和权限
 	@PostMapping("/updateUser")
 	public Map<String, Object> updateUser(User user, HttpSession session) {
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (user == null) {
 			map.put("info", "请输入您要修改的参数");
@@ -146,7 +147,6 @@ public class UserController<V> {
 		if (authority != 1) {
 			map.put("info", "您没有权限");
 			map.put("code", 400);
-			map.put("test", authority);
 			return map;
 		}
 		int updataUser = service.updataUser(user);
@@ -158,5 +158,33 @@ public class UserController<V> {
 		map.put("info", "修改失败");
 		map.put("code", 400);
 		return map;
+	}
+
+	// 通过loginName删除用户接口
+	@RequestMapping("/deleteUser")
+	public Map<String, Object> deleteUser(String loginName, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (loginName == null || loginName.equals("")) {
+			map.put("info", "请输入要删除的用户登录名称");
+			map.put("code", 400);
+			return map;
+		}
+		int authority = (int) session.getAttribute("authority");
+		// 只有超级管理员才能删除用户
+		if (authority != 1) {
+			map.put("info", "您没有权限");
+			map.put("code", 400);
+			return map;
+		}
+		int deleteUser = service.deleteUser(loginName);
+		if (deleteUser > 0) {
+			map.put("info", "删除成功");
+			map.put("code", 200);
+			return map;
+		}
+		map.put("info", "删除失败");
+		map.put("code", 400);
+		return map;
+
 	}
 }

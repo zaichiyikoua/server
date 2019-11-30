@@ -29,4 +29,7 @@ public interface UserDAO {
 
 	// 修改用户
 	public int updataUser(User user);
+
+	// 删除用户
+	public int deleteUser(String loginName);
 }
