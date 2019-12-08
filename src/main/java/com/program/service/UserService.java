@@ -20,7 +20,7 @@ public interface UserService {
 	public int addUser(User user);
 
 	// 修改用户
-	public int updataUser(User user);
+	public int updateUser(User user);
 
 	// 删除用户
 	public int deleteUser(String loginName);

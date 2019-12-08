@@ -149,7 +149,7 @@ public class UserController {
 			map.put("code", 400);
 			return map;
 		}
-		int updataUser = service.updataUser(user);
+		int updataUser = service.updateUser(user);
 		if (updataUser > 0) {
 			map.put("info", "修改成功");
 			map.put("code", 200);
