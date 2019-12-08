@@ -18,7 +18,7 @@ public class Song {
 	// 专辑名称 必需
 	private String album;
 	// 发行日期 必需
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date releaseTime;
 	// 发行公司 必需
 	private String company;

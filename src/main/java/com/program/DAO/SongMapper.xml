@@ -3,5 +3,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
   <mapper namespace="com.program.DAO.SongDAO">
+	<insert id="insertSong" parameterType="com.program.pojo.Song">
+		insert into p_songs(songId,songName,singer,type,album,releaseTime,company,cover,hot,note)
+		values(#{songId},#{songName},#{singer},#{type},#{album},
+				#{releaseTime},#{company},#{cover},#{hot},#{note})
+	</insert>
 	
+	<update id="updateSong" parameterType="com.program.pojo.Song">
+		update p_songs
+		<set>
+			songName=#{songName},singer=#{singer},
+		</set>
+		<if test="album != null and ablum != ''">
+			album=#{album},
+		</if>
+		<if test="releaseTime != null and releaseTime != ''">
+			releaseTime=#{releaseTime},
+		</if>
+		<if test="hot != null and hot != ''">
+			hot=#{hot},
+		</if>
+		<if test="note != null and note != ''">
+			note=#{note},
+		</if>
+		<if test="cover != null and cover != ''">
+			cover=#{cover},
+		</if>
+		where songId=#{songId}
+	</update>
   </mapper>
